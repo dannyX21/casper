@@ -1,0 +1,7 @@
+# Dependency directory
+node_modules/
+public/uploads/*
+public/lib/*
+
+# Environment variables
+.env

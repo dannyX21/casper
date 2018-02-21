@@ -1,0 +1,130 @@
+<navigation></navigation>
+<div class="container">
+  <div class="page-header text-center">
+    <h1>{{vm.pageHeader.title}}</h1>
+    <h5><i class="fas fa-home"></i> Open sale orders</h5>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-1">
+    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#filterBody">Filter <i class="fas fa-filter"></i></button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card" id="filterCard">
+      <div class="card-body collapse" id="filterBody">
+        <div class="row">
+          <div class="col-sm-3 col-xs-3">
+            <div class="form-inline">
+              <label for="soText">SO#</label>
+              <input class="form-control" id="soText" type="text" ng-model="vm.filterOrder.so" size="10" ng-change="vm.getTotal()"/>
+            </div>
+          </div>
+          <div class="col-sm-3 col-xs-3">
+            <div class="form-inline">
+              <label for="poText">PO#</label>
+              <input class="form-control w-75" id="poText" type="text" ng-model="vm.filterOrder.po" size="10" ng-change="vm.getTotal()" style="text-transform:uppercase"/>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xs-4">
+            <div class="form-inline">
+              <label for="selCust">Customer:</label>
+              <select class="form-control w-75" id="selCust" ng-options="cust.customer for cust in vm.customers" ng-model="vm.selCustomer" ng-change="vm.onSelCustomerChange()"></select>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-sm-3 col-xs-3">
+            <div class="form-inline">
+              <label for="selPermLoc">Perm. Loc:</label>
+              <select class="form-control" id="selPermLoc" ng-options="loc for loc in vm.permLocs" ng-model="vm.selPermLoc" ng-change="vm.onSelPermLocChange()"></select>
+            </div>
+          </div>
+          <div class="col-sm-3 col-xs-3">
+            <div class="form-inline">
+              <label for="pnText">P/N:</label>
+              <input class="form-control" id="pnText" type="text" ng-model="vm.filterOrder.pn" size="12" ng-change="vm.getTotal()" style="text-transform:uppercase"/>
+            </div>
+          </div>
+          <div class="col-sm-3 col-xs-6">
+            <div class="form-inline">
+              <label for="datePromDateFrom">Date from:</label>
+              <md-datepicker id="datePromDateFrom" ng-model="vm.filterOrder.promDateFrom" md-placeholder="Prom. date from" ng-change="vm.getTotal()"></md-datepicker>
+            </div>
+          </div>
+          <div class="col-sm-3 col-xs-6">
+            <div class="form-inline">
+              <label for="datePromDateTo">Date to:</label>
+              <md-datepicker id="datePromDateTo" ng-model="vm.filterOrder.promDateTo" md-placeholder="Prom. date to" ng-change="vm.getTotal()"></md-datepicker>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<div class="row">
+  <div class="col-sm-12 text-center" ng-show="vm.loading">
+    <img src="../img/loading.gif" alt="loading" style="width:256px;"/>
+  </div>
+  <div class="col-sm-12" ng-show="!vm.loading">
+    <table class="table table-striped table-hover table-bordered table-sm" id="table-report">
+      <thead class="sticky-top thead-dark text-center">
+        <th class="sticky-top" ng-click="vm.orderByMe('so')">SO#</th>
+        <th class="sticky-top" ng-click="vm.orderByMe('entryDate')">Entry Date</th>
+        <th class="sticky-top" ng-click="vm.orderByMe('sq')">SQ#</th>
+        <th class="sticky-top" ng-click="vm.orderByMe('po')">PO#</th>
+        <th class="sticky-top d-none d-lg-table-cell" ng-click="vm.orderByMe('customer')">Customer</th>
+        <th class="sticky-top" ng-click="vm.orderByMe('permLoc')">Perm. Loc</th>
+        <th class="sticky-top" ng-click="vm.orderByMe('type')">O. Type</th>
+        <th class="sticky-top" ng-click="vm.orderByMe('pn')">P/N</th>
+        <th class="sticky-top d-none d-lg-table-cell" ng-click="vm.orderByMe('lpn')">L P/N</th>
+        <th class="sticky-top" ng-click="vm.orderByMe('rev')">Rev.</th>
+        <th class="sticky-top" ng-click="vm.orderByMe('qtyOrdered')">Qty Ord.</th>
+        <th class="sticky-top" ng-click="vm.orderByMe('qtyPcs')">Total pcs.</th>
+        <th class="sticky-top" ng-click="vm.orderByMe('reqDate')">Req. Date</th>
+        <th class="sticky-top" ng-click="vm.orderByMe('promDate')">Prom. Date</th>
+        <th class="sticky-top" ng-click="vm.orderByMe('comments')">Comments</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="o in (vm.subSetData = (vm.orders  | filterOrders: vm.filterOrder  | orderBy:vm.myOrderBy:vm.sortReverse))">
+          <td class="text-center">{{o.so}}</td>
+          <td class="text-right">{{o.entryDate|date:"MM/dd/yy"}}</td>
+          <td class="text-center">{{o.sq}}</td>
+          <td class="text-center">{{o.po}}</td>
+          <td class="text-center d-none d-md-table-cell">{{o.customer}}</td>
+          <td class="text-center">{{o.permLoc}}</td>
+          <td class="text-center">{{o.type}}</td>
+          <td class="text-center">{{o.pn}}</td>
+          <td class="text-center d-none d-md-table-cell">{{o.lpn}}</td>
+          <td class="text-center">{{o.rev}}</td>
+          <td class="text-right">{{o.qtyOrdered|number}}</td>
+          <td class="text-right">{{o.qtyPcs|number}}</td>
+          <td class="text-right">{{o.reqDate|date:"MM/dd/yy"}}</td>
+          <td class="text-right">{{o.promDate|date:"MM/dd/yy"}}</td>
+          <td class="text-center">{{o.comments}}</td>
+        </tr>
+        <tr class="table-light">
+          <td class="text-center font-weight-bold">Total:</td>
+          <td class="text-right"></td>
+          <td class="text-center"></td>
+          <td class="text-center"></td>
+          <td class="text-center"></td>
+          <td class="text-center"></td>
+          <td class="text-center"></td>
+          <td class="text-center"></td>
+          <td class="text-center"></td>
+          <td class="text-center"></td>
+          <td class="text-right font-weight-bold">{{vm.totQty|number}}</td>
+          <td class="text-right font-weight-bold">{{vm.totPcs|number}}</td>
+          <td class="text-right"></td>
+          <td class="text-right"></td>
+          <td class="text-center"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

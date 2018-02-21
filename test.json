@@ -1,0 +1,20 @@
+{
+  "message": {
+    "!margins": {
+      "left":0.15748031496063,
+      "right":0.15748031496063,
+      "top":0.196850393700787,
+      "bottom":0.511811023622047,
+      "header":0.196850393700787,
+      "footer":0.15748031496063
+      },
+      "A3": {
+        "v":"OPEN.SO FEBRERO 13 2018",
+        "t" :"s",
+        "w":"OPEN.SO FEBRERO 13 2018"
+      },
+      "A6": {
+        "v":"BK",
+        "t":"s",
+        "w":"BK"
+        },"B6":{"v":"SALES","t":"s","w":"SALES"},"C6":{"v":"ORDER","t":"s","w":"ORDER"},"D6":{"v":"SALES","t":"s","w":"SALES"},"F6":{"v":"CUST","t":"s","w":"CUST"},"G6":{"v":" ","t":"s","w":" "},"H6":{"v":"BOM","t":"s","w":"BOM"},"I6":{"v":"LONG ","t":"s","w":"LONG "},"K6":{"v":"QTY","t":"s","w":"QTY"},"L6":{"v":"PMC","t":"s","w":"PMC"},"M6":{"v":"BEL","t":"s","w":"BEL"},"N6":{"v":"REQ","t":"s","w":"REQ"},"O6":{"v":"QTY","t":"s","w":"QTY"},"P6":{"v":"BAL","t":"s","w":"BAL"},"Q6":{"v":"UNIT","t":"s","w":"UNIT"},"R6":{"v":"BAL","t":"s","w":"BAL"},"S6":{"v":"SOURCE","t":"s","w":"SOURCE"},"T6":{"v":"CUST","t":"s","w":"CUST"},"U6":{"v":"PERM.","t":"s","w":"PERM."},"A7":{"v":"FC","t":"s","w":"FC"},"B7":{"v":"ORDER","t":"s","w":"ORDER"},"C7":{"v":"TYPE","t":"s","w":"TYPE"},"D7":{"v":"ORDER","t":"s","w":"ORDER"},"F7":{"v":"NBR","t":"s","w":"NBR"},"G7":{"v":"NUMBER","t":"s","w":"NUMBER"},"H7":{"v":"REV","t":"s","w":"REV"},"I7":{"v":"PN","t":"s","w":"PN"},"K7":{"v":"ORDER","t":"s","w":"ORDER"},"L7":{"v":"DATE","t":"s","w":"DATE"},"M7":{"v":"SHIP","t":"s","w":"SHIP"},"N7":{"v":"STD","t":"s","w":"STD"},"O7":{"v":"SHIPD","t":"s","w":"SHIPD"},"P7":{"v":"QTY","t":"s","w":"QTY"},"Q7":{"v":"PRICE","t":"s","w":"PRICE"},"R7":{"v":"EXT","t":"s","w":"EXT"},"S7":{"v":"SQD","t":"s","w":"SQD"},"T7":{"v":"ORD","t":"s","w":"ORD"},"U7":{"v":"LOC.","t":"s","w":"LOC."},"V7":{"v":"COMMENTS","t":"s","w":"COMMENTS"},"B8":...

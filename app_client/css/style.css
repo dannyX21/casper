@@ -1,0 +1,20 @@
+.table {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+label {
+  margin-right: 10px;
+}
+
+.card-summary {
+  margin-bottom: 15px;
+}
+
+.jumbotron {
+  padding: 32px 0px 32px 0px;
+  margin-bottom: 16px;
+}
+
+#table-report > thead, #table-report > thead > tr > th {
+  height: 65px;
+}

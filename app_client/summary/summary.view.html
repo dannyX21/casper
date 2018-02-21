@@ -1,0 +1,50 @@
+<navigation></navigation>
+<div class="container">
+  <div class="page-header text-center">
+    <h1>Stewart Connector Systems</h1>
+    <h5><i class="fas fa-table"></i> Weekly Summary</h5>
+  </div>
+</div>
+<br />
+<div class="row">
+  <div class="col-sm-12 text-center" ng-show="vm.weeks.length==0">
+    <img src="./img/loading.gif" alt="loading" style="width:256px;"/>
+  </div>
+  <div class="col-md-3 col-sm-12" ng-repeat="week in vm.weeks" ng-show="vm.weeks.length>0">
+    <div class="card card-summary">
+      <div class="card-header text-center bg-info text-white">
+        <h5>{{week.promDateFrom|date:"MM/dd/yy"}} - {{week.promDateTo|date:"MM/dd/yy"}}</h5>
+      </div>
+      <div class="card-body text-center">
+        <table class="table table-bordered table-striped table-hover table-sm">
+          <thead>
+            <tr>
+              <th>
+                Perm. Loc
+              </th>
+              <th>
+                Qty Ordered.
+              </th>
+              <th>
+                Qty Pcs.
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in week.summary">
+              <td class="text-center">
+                <a href="#/?permLoc={{x._id}}&promDateFrom={{week.promDateFrom.toDateString()}}&promDateTo={{week.promDateTo.toDateString()}}">{{x._id}}</a>
+              </td>
+              <td class="text-right">
+                {{x.totOrders|number}}
+              </td>
+              <td class="text-right">
+                {{x.totPcs|number}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
