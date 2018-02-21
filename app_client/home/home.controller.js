@@ -16,28 +16,28 @@
     vm.subSetData = [];
     vm.loading = true;
 
-    vm.getPermLocs = () => {
+    vm.getPermLocs = function() {
       vm.selPermLoc = $routeParams.permLoc;
-      return orderData.getPermLocs(vm.selPermLoc, vm.filterOrder.promDateFrom, vm.filterOrder.promDateTo).then(data => {
+      return orderData.getPermLocs(vm.selPermLoc, vm.filterOrder.promDateFrom, vm.filterOrder.promDateTo).then(function(data) {
         vm.permLocs = data.data;
         vm.permLocs.sort();
         vm.permLocs.unshift('ALL');
         if(vm.selPermLoc) {
           vm.onSelPermLocChange();
         }
-      }, err => {
+      }, function (err) {
         console.log(err);
       });
     };
 
-    vm.getOrders = () => {
+    vm.getOrders = function() {
       vm.loading = true;
-      return orderData.getOrders(vm.filterOrder.permLoc, vm.filterOrder.promDateFrom, vm.filterOrder.promDateTo).then(data => {
+      return orderData.getOrders(vm.filterOrder.permLoc, vm.filterOrder.promDateFrom, vm.filterOrder.promDateTo).then(function(data) {
         vm.orders = data.data;
         console.log("Rows: " + vm.orders.length)
         vm.customers = [];
         let dict = {};
-        vm.orders.map((item) => {
+        vm.orders.map(function(item) {
           dict[item.customerId] = item.customer;
         });
         for(let property in dict) {
@@ -50,12 +50,12 @@
           customer: "ALL"
         });
         vm.loading = false;
-      }, err => {
+      }, function (err) {
         console.log(err);
       });
     };
 
-    vm.orderByMe = (colName) => {
+    vm.orderByMe = function(colName) {
       if(colName === vm.myOrderBy) {
         vm.sortReverse = !vm.sortReverse;
       }
@@ -73,8 +73,8 @@
     };
 
     vm.getTotal = function() {
-      setTimeout(() => {
-        $scope.$apply(() => {
+      setTimeout(function() {
+        $scope.$apply(function() {
           vm.totQty = 0;
           vm.totPcs = 0;
           for(let c=0; c< vm.subSetData.length; c++) {
@@ -91,13 +91,13 @@
     if($routeParams.promDateTo && Date.parse($routeParams.promDateTo)!== NaN) {
       vm.filterOrder.promDateTo = new Date($routeParams.promDateTo);
     }
-    vm.getPermLocs().then(()=> {
-      vm.getOrders().then(()=> {
+    vm.getPermLocs().then(function() {
+      vm.getOrders().then(function() {
         vm.getTotal();
-      }, (err) => {
+      }, function(err) {
         console.log(err);
       });
-    }, (err) => {
+    }, function(err) {
       console.log(err);
     });
   }

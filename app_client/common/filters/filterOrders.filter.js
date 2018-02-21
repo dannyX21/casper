@@ -1,10 +1,10 @@
 (function() {
   angular.module('casperApp').filter('filterOrders', filterOrders);
   function filterOrders () {
-    return (items, filterData) => {
+    return function(items, filterData){
       let result = [];
       try {
-        items.forEach((item) => {
+        items.forEach(function(item) {
           if(filterData.permLoc && item.permLoc!== filterData.permLoc) {
             return;
           }

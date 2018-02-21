@@ -7,12 +7,12 @@
       title: "Upload OPEN.SO File."
     };
 
-    vm.onUploadSuccess = (response) => {
+    vm.onUploadSuccess = function(response) {
       let fileName = response.data.fileName;
       $location.path("/");
     };
 
-    vm.onUploadError = (response) => {
+    vm.onUploadError = function(response) {
       alert(JSON.stringify(response.data));
     };
   }

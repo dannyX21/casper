@@ -27,7 +27,7 @@
       }
       if(promDateTo) {
         query+= "promDateTo=" + promDateTo.toDateString() + "&";
-      }      
+      }
       return $http.get(query);
     };
 
@@ -35,7 +35,7 @@
       return $http.get("/api/summary?promDateFrom=" + formatDate(promDateFrom) + "&promDateTo=" + formatDate(promDateTo));
     }
 
-    formatDate = (date) => {
+    formatDate = function(date) {
       return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     }
 
