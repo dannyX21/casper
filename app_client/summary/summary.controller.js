@@ -20,6 +20,7 @@
     vm.getPermLocs = function() {
       return orderData.getPermLocs().then(function(data) {
         vm.permLocs = data.data;
+        vm.permLocs.sort();
       }, function(err) {
         console.log(err);
       });
