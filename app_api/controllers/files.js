@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
 const Order = mongoose.model('Order');
+const Material = mongoose.model('Material');
 const xlsx = require('xlsx');
 
 let sendJsonResponse = function(res, status, content) {
@@ -9,7 +10,97 @@ let sendJsonResponse = function(res, status, content) {
   res.json(content);
 };
 
-module.exports.uploadFile = function(req, res) {
+module.exports.uploadMaterials = (req, res) => {
+  if(!req.files) {
+    sendJsonResponse(res, 400, {
+      message: "No files were uploaded."
+    });
+    return;
+  }
+  const attachment = req.files.attachment;
+  const filePath = process.env.UPLOAD_PATH;
+  let fileName = attachment.name;
+  let index = 1;
+  const extension = path.extname(attachment.name);
+  if(extension !== '.xlsx' && extension !== '.xls') {
+    sendJsonResponse(res, 400, {
+      message: "Only Excel files are allowed."
+    });
+    fs.unlink(filePath + fileName, (err) => {
+      if(err) {
+        console.log(err);
+      }
+    });
+    return;
+  }
+  while(fs.existsSync(filePath + fileName)){
+    fileName = attachment.name.substring(0,attachment.name.length - extension.length) + "(" + index + ")" + extension;
+    index ++;
+  }
+  attachment.mv(filePath + fileName, function(err) {
+    if(err) {
+      console.log(err);
+      sendJsonResponse(res, 500, err);
+      return;
+    }
+    const workbook = xlsx.readFile(filePath + fileName);
+    const sheetNameList = workbook.SheetNames;
+    const worksheet = workbook.Sheets["RMEXREQ"];
+    let data = xlsx.utils.sheet_to_json(worksheet, {raw: true, header: 1, blankrows: false});
+    let index = 1;
+    const rows = data.length;
+    console.log(rows);
+    const items = [];
+    while(index<rows && data[index][1]!=null) {
+      if(data[index][1]!=="FC") {
+        let qtyOH = data[index][9];
+        let qtyAllocated = data[index][5];
+        let qtyOnOrder = data[index][10];
+        let qtyWO = data[index][7];
+        let balance = qtyOH - qtyAllocated + qtyOnOrder;
+        let ss = data[index][11];
+        items.push({
+          pn: data[index][0],
+          invType: data[index][1],
+          description: data[index][2],
+          qtyOH: qtyOH,
+          permLoc: data[index][4]||"",
+          qtyAllocated: qtyAllocated,
+          qtyOnOrder: qtyOnOrder,
+          qtyWO: qtyWO,
+          qtyGR: data[index][13],
+          balance: balance,
+          ss: ss,
+          usageMonth: data[index][12],
+          qtyMissing: ss - balance
+        });
+      }
+      index++;
+    }
+    Material.remove({}, (err) => {
+      if(err) {
+        sendJsonResponse(res, 500, err);
+        return;
+      }
+      Material.create(items,(err, materials) => {
+        if(err) {
+          sendJsonResponse(res, 500, err);
+          return;
+        }
+        sendJsonResponse(res, 200, {
+          data: materials
+        });
+      });
+    });
+    fs.unlink(filePath + fileName, (err) => {
+      if(err) {
+        console.log(err);
+      }
+    });
+  });
+};
+
+module.exports.uploadOpenSO = function(req, res) {
   if(!req.files) {
     sendJsonResponse(res, 400, {
       message: "No files were uploaded."
@@ -26,6 +117,11 @@ module.exports.uploadFile = function(req, res) {
     sendJsonResponse(res, 400, {
       message: "Only excel files are allowed."
     });
+    fs.unlink(filePath + fileName, (err) => {
+      if(err) {
+        console.log(err);
+      }
+    });
     return;
   }
 
@@ -41,7 +137,7 @@ module.exports.uploadFile = function(req, res) {
     const workbook = xlsx.readFile(filePath + fileName);
     const sheetNameList = workbook.SheetNames;
     const worksheet = workbook.Sheets["OPEN.SO"];
-    let roa = xlsx.utils.sheet_to_json(worksheet, {raw: true, header: 1, blankrows: false});    
+    let roa = xlsx.utils.sheet_to_json(worksheet, {raw: true, header: 1, blankrows: false});
     let index = 5;
     const rows = roa.length;
     const orders = [];

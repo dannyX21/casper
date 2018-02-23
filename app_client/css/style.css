@@ -15,6 +15,6 @@ label {
   margin-bottom: 16px;
 }
 
-#table-report > thead, #table-report > thead > tr > th {
+.main-table > thead, .main-table > thead > tr > th {
   height: 65px;
 }

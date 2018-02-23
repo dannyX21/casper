@@ -13,9 +13,19 @@
       controller: "uploadCtrl",
       controllerAs: "vm"
     })
+    .when('/uploadMaterials', {
+      templateUrl: "/uploadMaterials/uploadMaterials.view.html",
+      controller: "uploadMaterialsCtrl",
+      controllerAs: "vm"
+    })
     .when('/summary', {
       templateUrl: '/summary/summary.view.html',
       controller: 'summaryCtrl',
+      controllerAs: 'vm'
+    })
+    .when('/mrp', {
+      templateUrl: '/mrp/mrp.view.html',
+      controller: 'mrpCtrl',
       controllerAs: 'vm'
     })
     .otherwise({

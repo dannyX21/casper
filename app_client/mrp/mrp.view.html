@@ -1,0 +1,73 @@
+<navigation></navigation>
+<div class="container">
+  <div class="page-header text-center">
+    <h1>Stewart Connector Systems</h1>
+    <h5><i class="fas fa-home"></i> MRP Report</h5>
+  </div>
+  <div class="row">
+    <div class="col-sm-1">
+      <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#filterBody">Filter <i class="fas fa-filter"></i></button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card" id="filterCard">
+        <div class="card-body collapse" id="filterBody">
+          <div class="row">
+            <div class="col-sm-3 col-xs-3">
+              <div class="form-inline">
+                <label for="selType">Type:</label>
+                <select class="form-control" id="selType" ng-options="t.type for t in vm.types" ng-model="vm.selType" ng-change="vm.onSelTypeChange()"></select>
+              </div>
+            </div>
+            <div class="col-sm-3 col-xs-3">
+              <div class="form-inline">
+                <label for="pnText">P/N:</label>
+                <input class="form-control" id="pnText" type="text" ng-model="vm.filterMats.pn" size="12" ng-change="vm.getTotal()" style="text-transform:uppercase"/>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-6">
+              <label class="radio-inline"><input type="radio" name="optBelowSS" ng-model="vm.filterMats.stockStatus" value="0"/>Items below the Safety Stock.</label>
+              <label class="radio-inline"><input type="radio" name="optNegative" ng-model="vm.filterMats.stockStatus" value="1"/>Items with negative balance.</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table table-bordered table-striped table-hover table-sm main-table">
+        <thead class="text-center thead-light">
+          <th class="sticky-top" ng-click="vm.orderByMe('pn')">P/N</th>
+          <th class="sticky-top" ng-click="vm.orderByMe('description')">Description</th>
+          <th class="sticky-top" ng-click="vm.orderByMe('type')">Type</th>
+          <th class="sticky-top" ng-click="vm.orderByMe('qtyOH')">Qty OH</th>
+          <th class="sticky-top" ng-click="vm.orderByMe('qtyAllocated')">Qty Allocated</th>
+          <th class="sticky-top" ng-click="vm.orderByMe('qtyOnOrder')">Qty On Order</th>
+          <th class="sticky-top" ng-click="vm.orderByMe('qtyWO')">Qty WO</th>
+          <th class="sticky-top" ng-click="vm.orderByMe('qtyGR')">Qty in GR</th>
+          <th class="sticky-top" ng-click="vm.orderByMe('balance')">Balance</th>
+          <th class="sticky-top" ng-click="vm.orderByMe('ss')">Safety Stock</th>
+          <th class="sticky-top" ng-click="vm.orderByMe('qtyMissing')">Qty Missing</th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="m in vm.materials | filterMRP: vm.filterMats | orderBy:vm.myOrderBy:vm.sortReverse">
+            <td class="text-center">{{m.pn}}</td>
+            <td>{{m.description}}</td>
+            <td class="text-center">{{m.type}}</td>
+            <td class="text-right">{{m.qtyOH|number}}</td>
+            <td class="text-right">{{m.qtyAllocated|number}}</td>
+            <td class="text-right">{{m.qtyOnOrder|number}}</td>
+            <td class="text-right">{{m.qtyWO|number}}</td>
+            <td class="text-right">{{m.qtyGR|number}}</td>
+            <td class="text-right">{{m.balance|number}}</td>
+            <td class="text-right">{{m.ss|number}}</td>
+            <td class="text-right">{{m.qtyMissing|number}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

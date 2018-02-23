@@ -1,0 +1,19 @@
+<navigation></navigation>
+<div class="container">
+  <div class="page-header text-center">
+    <h1>Stewart Connector Systems</h1>
+    <h5><i class="fas fa-upload"></i> Upload Materials file.</h5>
+  </div>
+</div>
+<br />
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>Upload the most recent Materials Excel file to update the reports. </h3>
+      <br />
+      <div class"btn-upload" upload-button url="/api/uploadMaterials" param="attachment" multiple="false" on-success="vm.onUploadSuccess(response)" on-error="vm.onUploadError(response)">
+        <span class="glyphicon-paperclip"></span> Upload file
+      </div>
+    </div>
+  </div>
+</div>
