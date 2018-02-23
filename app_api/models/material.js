@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const materialSchema = new mongoose.Schema({
-  pn: {type: String, required: true, unique: true},
+  pn: {type: String, required: true, unique: true, index: true},
   invType: {type: String, required: true},
   description: {type: String, required: true},
   qtyOH: {type: Number, "default": 0},

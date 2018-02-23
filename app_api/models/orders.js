@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 let orderSchema = new mongoose.Schema({
-  so: {type: Number, "default": 0},
+  so: {type: Number, "default": 0, index: true},
   type: {type: String},
   entryDate: {type: Date, required: true},
   customerId: {type: Number},
   customer: {type: String},
-  pn: {type: String, required: true},
+  pn: {type: String, required: true, index: true},
   rev: {type: String, required: false},
   lpn: {type: String, required: false},
   qtyOrdered: {type: Number, "default": 0},
@@ -18,8 +18,8 @@ let orderSchema = new mongoose.Schema({
   unitPrice: {type: Number, required: true},
   balPrice: {type: Number, required: true},
   sq: {type: String, required: false},
-  po: {type: String, required: false},
-  permLoc: {type: String, required: true},
+  po: {type: String, required: false, index: true},
+  permLoc: {type: String, required: true, index: true},
   comments: {type: String, required: false}
 });
 
