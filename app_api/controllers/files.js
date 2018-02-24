@@ -3,6 +3,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Order = mongoose.model('Order');
 const Material = mongoose.model('Material');
+const Cable = mongoose.model('Cable');
+const Component = mongoose.model('Component');
 const xlsx = require('xlsx');
 
 let sendJsonResponse = function(res, status, content) {
@@ -46,12 +48,17 @@ module.exports.uploadMaterials = (req, res) => {
     const workbook = xlsx.readFile(filePath + fileName);
     const sheetNameList = workbook.SheetNames;
     const worksheet = workbook.Sheets["RMEXREQ"];
+    const wsCable = workbook.Sheets["Cable"];
+    const wsComponent = workbook.Sheets["Components"];
     let data = xlsx.utils.sheet_to_json(worksheet, {raw: true, header: 1, blankrows: false});
+    let dataCable = xlsx.utils.sheet_to_json(wsCable, {raw: true, header: 1, blankrows: false});
+    let dataComponent = xlsx.utils.sheet_to_json(wsComponent, {raw: true, header: 1, blankrows: false});
+
     let index = 1;
-    const rows = data.length;
-    console.log(rows);
-    const items = [];
-    while(index<rows && data[index][1]!=null) {
+    let rows = data.length-1;
+    console.log("rows: " + rows);
+    let materials = [];
+    while(index<rows) {
       if(data[index][1]!=="FC") {
         let qtyOH = data[index][9];
         let qtyAllocated = data[index][5];
@@ -59,7 +66,7 @@ module.exports.uploadMaterials = (req, res) => {
         let qtyWO = data[index][7];
         let balance = qtyOH - qtyAllocated + qtyOnOrder;
         let ss = data[index][11];
-        items.push({
+        materials.push({
           pn: data[index][0],
           invType: data[index][1],
           description: data[index][2],
@@ -77,18 +84,76 @@ module.exports.uploadMaterials = (req, res) => {
       }
       index++;
     }
+
+    index = 1;
+    rows = dataCable.length;
+    let cables = [];
+    while(index < rows) {
+      cables.push({
+        pn: dataCable[index][1],
+        dept: dataCable[index][0],
+        mfr: dataCable[index][2],
+        type: dataCable[index][3],
+        shield: dataCable[index][4],
+        color: dataCable[index][5],
+        legend: dataCable[index][6],
+        ss: dataCable[index][7]
+      });
+      index++;
+    }
+
+    index = 1;
+    rows = dataComponent.length;
+    let components = [];
+    while(index < rows) {
+      components.push({
+        pn: dataComponent[index][1],
+        dept: dataComponent[index][0],
+        description: dataComponent[index][2],
+        um: dataComponent[index][3],
+        ss: dataComponent[index][4]
+      });
+      index++;
+    }
+    console.log(cables);
+    console.log(components);
+
     Material.remove({}, (err) => {
       if(err) {
         sendJsonResponse(res, 500, err);
         return;
       }
-      Material.create(items,(err, materials) => {
+      Cable.remove({}, (err) => {
         if(err) {
           sendJsonResponse(res, 500, err);
           return;
         }
-        sendJsonResponse(res, 200, {
-          data: materials
+        Component.remove({}, (err) => {
+          if(err) {
+            sendJsonResponse(res, 500, err);
+            return;
+          }
+          Material.create(materials,(err) => {
+            if(err) {
+              sendJsonResponse(res, 500, err);
+              return;
+            }
+            Cable.create(cables,(err) => {
+              if(err) {
+                sendJsonResponse(res, 500, err);
+                return;
+              }
+              Component.create(components, (err) => {
+                if(err) {
+                  sendJsonResponse(res, 500, err);
+                  return;
+                }
+                sendJsonResponse(res, 200, {
+                  message: "Report has been updated succesfully!"
+                });
+              });
+            });
+          });
         });
       });
     });

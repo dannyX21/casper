@@ -46,3 +46,5 @@ process.on('SIGTERM', function(){ //Listen for SIGTERM emitted when Heroku shutd
 
 require('./orders');
 require('./material');
+require('./cable');
+require('./component');
