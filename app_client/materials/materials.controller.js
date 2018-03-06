@@ -17,7 +17,7 @@
             item.active = item.details[0].usageMonth > 0;
           }
         });
-        vm.compDepts = [...depts];
+        vm.compDepts = set2Array(depts);
         vm.compDepts.sort();
         vm.compDepts.unshift('ALL');
         vm.filterComp.dept = "ALL";
@@ -47,27 +47,28 @@
             item.active = item.details[0].usageMonth > 0;
           }
         });
-        vm.depts = [...depts];
+        vm.depts = set2Array(depts);
         vm.depts.sort();
         vm.depts.unshift("ALL");
         vm.filterCable.dept = "ALL";
-        vm.mfrs = [...mfrs];
+        vm.mfrs = set2Array(mfrs);
         vm.mfrs.sort();
         vm.mfrs.unshift("ALL");
         vm.filterCable.mfr= "ALL";
-        vm.types = [...types];
+        vm.types = set2Array(types);
         vm.types.sort();
         vm.types.unshift("ALL");
+        console.log(vm.types);
         vm.filterCable.type = "ALL";
-        vm.shields = [...shields];
+        vm.shields = set2Array(shields);
         vm.shields.sort();
         vm.shields.unshift("ALL");
         vm.filterCable.shield = "ALL";
-        vm.colors = [...colors];
+        vm.colors = set2Array(colors);
         vm.colors.sort();
         vm.colors.unshift("ALL");
         vm.filterCable.color = "ALL";
-        vm.legends = [...legends];
+        vm.legends = set2Array(legends);
         vm.legends.sort();
         vm.legends.unshift("ALL");
         vm.filterCable.legend = "ALL";
@@ -75,6 +76,14 @@
         console.log(err);
       });
     };
+
+    function set2Array(set) {
+      let a = [];
+      set.forEach(function(item) {
+        a.push(item);
+      });
+      return a;
+    }
 
     vm.orderByMe = function(colName) {
       if(colName === vm.myOrderBy) {
