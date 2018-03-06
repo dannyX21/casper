@@ -28,6 +28,11 @@
       controller: 'mrpCtrl',
       controllerAs: 'vm'
     })
+    .when('/materials', {
+      templateUrl: '/materials/materials.view.html',
+      controller: 'materialsCtrl',
+      controllerAs: 'vm'
+    })
     .otherwise({
       redirectTo: "/"
     });

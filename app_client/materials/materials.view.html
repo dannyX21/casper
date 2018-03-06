@@ -1,0 +1,171 @@
+<navigation></navigation>
+<div class="container-fluid">
+  <div class="page-header text-center">
+    <h1>Stewart Connector Systems</h1>
+    <h5><i class="fa fa-industry" aria-hidden="true"></i> Materials</h5>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" data-target="#cables">Cables</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" data-target="#components">Components</a>
+        </li>
+      </ul>
+      <div class="card">
+        <div class="tab-content">
+          <div class="tab-pane active container-fluid" id="cables">
+            <h1>Cables</h1>
+            <div class="row">
+              <div class="col-sm-2">
+                <label for="selPN">P/N:</label>
+                <input class="form-control" type="text" ng-model="vm.filterCable.pn" placeholder="P/N"/>
+              </div>
+              <div class="col-sm-1">
+                <label for="selDept">Dept:</label>
+                <select class="form-control" ng-model="vm.filterCable.dept" ng-options="dept for dept in vm.depts"></select>
+              </div>
+              <div class="col-sm-1">
+                <label for="selMfr">Mfr:</label>
+                <select class="form-control" ng-model="vm.filterCable.mfr" ng-options="mfr for mfr in vm.mfrs" ng-init="ALL"></select>
+              </div>
+              <div class="col-sm-2">
+                <label for="selType">Type:</label>
+                <select class="form-control" ng-model="vm.filterCable.type" ng-options="type for type in vm.types" ng-init="ALL"></select>
+              </div>
+              <div class="col-sm-1">
+                <label for="selShield">Shield:</label>
+                <select class="form-control" ng-model="vm.filterCable.shield" ng-options="shield for shield in vm.shields" ng-init="ALL"></select>
+              </div>
+              <div class="col-sm-2">
+                <label for="selColor">Color:</label>
+                <select class="form-control" ng-model="vm.filterCable.color" ng-options="color for color in vm.colors" ng-init="ALL"></select>
+              </div>
+              <div class="col-sm-1">
+                <label for="selLegend">Legend:</label>
+                <select class="form-control" ng-model="vm.filterCable.legend" ng-options="legend for legend in vm.legends" ng-init="ALL"></select>
+              </div>
+              <div class="col-sm-2">
+                <br />
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" ng-model="vm.filterCable.active">Active only.
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" ng-model="vm.filterCable.shortsOnly">Shorts only.
+                  </label>
+                </div>
+              </div>
+            </div>
+            <br />
+            <table class="table table-bordered table-striped table-hover table-sm main-table">
+              <thead class="text-center thead-light">
+                <th class="sticky-top" ng-click="vm.orderByMe('pn')">P/N</th>
+                <th class="sticky-top" ng-click="vm.orderByMe('dept')">Dept.</th>
+                <th class="sticky-top" ng-click="vm.orderByMe('mfr')">Mfr.</th>
+                <th class="sticky-top" ng-click="vm.orderByMe('type')">Cable type</th>
+                <th class="sticky-top" ng-click="vm.orderByMe('shield')">Shield</th>
+                <th class="sticky-top" ng-click="vm.orderByMe('color')">Color</th>
+                <th class="sticky-top" ng-click="vm.orderByMe('legend')">Legend</th>
+                <th class="sticky-top" ng-click="vm.orderByMe('ss')">S. S.</th>
+                <th class="sticky-top" ng-click="vm.orderByMe('details[0].usageMonth')">Avg./Month</th>
+                <th class="sticky-top" ng-click="vm.orderByMe('details[0].usageMonth')">Avg./Week</th>
+                <th class="sticky-top" ng-click="vm.orderByMe('details[0].qtyOH')">Qty OH</th>
+                <th class="sticky-top" ng-click="vm.orderByMe('details[0].qtyAllocated')">Qty Allocated</th>
+                <th class="sticky-top" ng-click="vm.orderByMe('details[0].qtyGR')">Qty in GR</th>
+                <th class="sticky-top" ng-click="vm.orderByMe('details[0].qtyOrdered')">Qty on Order</th>
+                <th class="sticky-top" ng-click="vm.orderByMe('details[0].balance')">Balance</th>
+                <th class="sticky-top"># of Weeks</th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="cable in vm.cables | filterCables : vm.filterCable | orderBy:vm.myOrderBy:vm.sortReverse">
+                  <td class="text-center">{{cable.pn}}</td>
+                  <td class="text-center">{{cable.dept}}</td>
+                  <td class="text-center">{{cable.mfr}}</td>
+                  <td class="text-center">{{cable.type}}</td>
+                  <td class="text-center">{{cable.shield}}</td>
+                  <td class="text-center">{{cable.color}}</td>
+                  <td class="text-center">{{cable.legend}}</td>
+                  <td class="text-right">{{cable.ss | number}}</td>
+                  <td class="text-right">{{(cable.details[0].usageMonth || 0) | number}}</td>
+                  <td class="text-right">{{(cable.details[0].usageMonth || 0) * 3 / 13 | number : 0}}</td>
+                  <td class="text-right">{{(cable.details[0].qtyOH || 0) | number}}</td>
+                  <td class="text-right">{{(cable.details[0].qtyAllocated || 0) | number}}</td>
+                  <td class="text-right">{{(cable.details[0].qtyGR || 0) | number}}</td>
+                  <td class="text-right">{{(cable.details[0].qtyOnOrder || 0) | number}}</td>
+                  <td class="text-right">{{(cable.details[0].balance || 0) | number}}</td>
+                  <td class="text-right">{{ (cable.details[0].balance / (cable.details[0].usageMonth * 3 / 13 ) || 0) | number}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane container-fluid" id="components">
+            <h1>Components</h1>
+            <div class="row">
+              <div class="col-sm-2">
+                <label for="pnComp">P/N:</label>
+                <input id="pnComp" class="form-control" type="text" ng-model="vm.filterComp.pn" placeholder="P/N"/>
+              </div>
+              <div class="col-sm-1">
+                <label for="deptComp">Dept:</label>
+                <select id="deptComp" class="form-control" ng-model="vm.filterComp.dept" ng-options="dept for dept in vm.compDepts"></select>
+              </div>
+              <div class="col-sm-2">
+                <br />
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" ng-model="vm.filterComp.active">Active only.
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" ng-model="vm.filterComp.shortsOnly">Shorts only.
+                  </label>
+                </div>
+              </div>
+            </div>
+            <br />
+            <table class="table table-bordered table-striped table-hover table-sm main-table">
+              <thead class="text-center thead-light">
+                <th class="sticky-top" ng-click="vm.orderCompByMe('pn')">P/N</th>
+                <th class="sticky-top" ng-click="vm.orderCompByMe('dept')">Dept.</th>
+                <th class="sticky-top" ng-click="vm.orderCompByMe('description')">Description</th>
+                <th class="sticky-top" ng-click="vm.orderCompByMe('um')">UM</th>
+                <th class="sticky-top" ng-click="vm.orderCompByMe('ss')">S. S.</th>
+                <th class="sticky-top" ng-click="vm.orderCompByMe('details[0].usageMonth')">Avg./Month</th>
+                <th class="sticky-top" ng-click="vm.orderCompByMe('details[0].usageMonth')">Avg./Week</th>
+                <th class="sticky-top" ng-click="vm.orderCompByMe('details[0].qtyOH')">Qty OH</th>
+                <th class="sticky-top" ng-click="vm.orderCompByMe('details[0].qtyAllocated')">Qty Allocated</th>
+                <th class="sticky-top" ng-click="vm.orderCompByMe('details[0].qtyGR')">Qty in GR</th>
+                <th class="sticky-top" ng-click="vm.orderCompByMe('details[0].qtyOrdered')">Qty on Order</th>
+                <th class="sticky-top" ng-click="vm.orderCompByMe('details[0].balance')">Balance</th>
+                <th class="sticky-top"># of Weeks</th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="comp in vm.components | filterComponents : vm.filterComp | orderBy:vm.myCompOrderBy:vm.compSortReverse">
+                  <td class="text-center">{{comp.pn}}</td>
+                  <td class="text-center">{{comp.dept}}</td>
+                  <td>{{comp.description}}</td>
+                  <td class="text-center">{{comp.um}}</td>
+                  <td class="text-right">{{comp.ss | number}}</td>
+                  <td class="text-right">{{(comp.details[0].usageMonth || 0) | number}}</td>
+                  <td class="text-right">{{(comp.details[0].usageMonth || 0) * 3 / 13 | number : 0}}</td>
+                  <td class="text-right">{{(comp.details[0].qtyOH || 0) | number}}</td>
+                  <td class="text-right">{{(comp.details[0].qtyAllocated || 0) | number}}</td>
+                  <td class="text-right">{{(comp.details[0].qtyGR || 0) | number}}</td>
+                  <td class="text-right">{{(comp.details[0].qtyOnOrder || 0) | number}}</td>
+                  <td class="text-right">{{(comp.details[0].balance || 0) | number}}</td>
+                  <td class="text-right">{{ (comp.details[0].balance / (comp.details[0].usageMonth * 3 / 13 ) || 0) | number}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

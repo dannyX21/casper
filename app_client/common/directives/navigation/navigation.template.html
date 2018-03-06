@@ -11,19 +11,24 @@
       <li class="nav-item">
         <a class="nav-link" href="#/"><i class="fas fa-home"></i> Home</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#/summary"><i class="fas fa-table"></i> Summary</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#/upload"><i class="fas fa-upload"></i> Update Open.SO</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbardrop1" data-toggle="dropdown"><i class="fa fa-list"></i> Open S. O.</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#/"><i class="fa fa-list" aria-hidden="true"></i> Open Sale Orders</a>
+          <a class="dropdown-item" href="#/summary"><i class="fas fa-table"></i> Summary</a>
+          <a class="dropdown-item" href="#/upload"><i class="fas fa-upload"></i> Update report</a>
+        </div>
       </li>
       <!-- Dropdown -->
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown"><i class="fas fa-list-alt"></i> MRP</a>
+        <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown"><i class="fas fa-chart-line" aria-hidden="true"></i> MRP</a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#/mrp"><i class="fas fa-eye"></i> View MRP</a>
+          <a class="dropdown-item" href="#/mrp"><i class="fas fa-chart-line" aria-hidden="true"></i> MRP Report</a>
           <a class="dropdown-item" href="#/uploadMaterials"><i class="fas fa-upload"></i> Update Materials</a>
         </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#/materials"><i class="fa fa-industry" aria-hidden="true"></i> Materials</a>
       </li>
     </ul>
   </div>
