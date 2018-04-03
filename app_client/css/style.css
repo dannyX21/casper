@@ -18,3 +18,12 @@ label {
 .main-table > thead, .main-table > thead > tr > th {
   height: 65px;
 }
+
+#table-eval > thead > tr > th {
+  font-size: 1.1em;
+  vertical-align: middle !important;
+}
+
+#table-eval > tbody {
+  font-size: 1.25em;
+}

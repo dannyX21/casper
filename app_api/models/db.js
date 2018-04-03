@@ -48,3 +48,4 @@ require('./orders');
 require('./material');
 require('./cable');
 require('./component');
+require('./evaluation');

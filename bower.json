@@ -38,6 +38,7 @@
     "angular-material": "^1.1.7",
     "angular-aria": "^1.6.9",
     "angular-messages": "^1.6.9",
-    "traceur": "^0.0.111"
+    "traceur": "^0.0.111",
+    "angular-google-chart": "^0.1.0"
   }
 }

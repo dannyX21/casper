@@ -1,5 +1,5 @@
 (function() {
-  angular.module('casperApp', ['ngRoute', 'ngSanitize', 'ngMaterial', 'ngMessages', 'lr.upload']);
+  angular.module('casperApp', ['ngRoute', 'ngSanitize', 'ngMaterial', 'ngMessages', 'lr.upload', 'googlechart']);
   function config($routeProvider, $locationProvider) {
     $locationProvider.hashPrefix('');
     $routeProvider
@@ -31,6 +31,11 @@
     .when('/materials', {
       templateUrl: '/materials/materials.view.html',
       controller: 'materialsCtrl',
+      controllerAs: 'vm'
+    })
+    .when('/evaluation', {
+      templateUrl: '/evaluation/evaluation.view.html',
+      controller: 'evaluationCtrl',
       controllerAs: 'vm'
     })
     .otherwise({
