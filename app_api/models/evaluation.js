@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const vendorSchema = new mongoose.Schema({
-  number: {type: Number, required: true, unique: true},
-  name: {type: String, required: true, unique: true},
+  number: {type: Number, required: true},
+  name: {type: String, required: true},
   q1: {type: String, required: true, "default": 0},
   q2: {type: String, required: true, "default": 0},
   q3: {type: String, required: true, "default": 0},
@@ -12,7 +12,7 @@ const vendorSchema = new mongoose.Schema({
 });
 
 const evaluationSchema = new mongoose.Schema({
-  period: {type: String, required: true, unique: true},
+  period: {type: String, required: true},
   date: {type: Date, "default": Date.now },
   vendors: [vendorSchema]
 });

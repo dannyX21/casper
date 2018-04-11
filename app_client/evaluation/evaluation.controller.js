@@ -30,7 +30,7 @@
       },
       d3: {
         text:"Paperwork - packing slips, advance shipping paperwork, product labels.",
-        weight: 2
+        weight: 1
       }
     };
 

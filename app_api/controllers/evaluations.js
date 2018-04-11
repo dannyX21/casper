@@ -15,6 +15,7 @@ module.exports.getPeriods = (req, res) => {
       });
       return;
     }
+    console.log(evaluations);
     sendJsonResponse(res, 200, evaluations);
   });
 };
