@@ -12,8 +12,7 @@
       }
       if(promDateTo) {
         query+= "promDateTo=" + promDateTo.toDateString() + "&";
-      }
-      console.log("service query: " + query);
+      }      
       return $http.get(query);
     };
 

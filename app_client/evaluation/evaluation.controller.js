@@ -66,7 +66,6 @@
     };
 
     vm.onPeriodChange = function(){
-      console.log(vm.period);
       vm.getEvaluation(vm.period.period);
     };
 
@@ -168,7 +167,6 @@
         },
         formatters: {}
       };
-      console.log(vm.vendors.length);
       vm.vendors.forEach(function(ven) {
         vm.chartObject.data.rows.push({
           c: [
@@ -184,10 +182,14 @@
           ]
         });
       });
-      console.log(vm.chartObject);
     };
 
     vm.getPeriods();
+    const nav = document.querySelector('.nav-pills');
+    nav.addEventListener('click', function(e) {
+      if(e.target && e.target.matches('a.nav-link.active.show')) {
+        vm.chartObject.draw();
+      }
+    });
   }
-
 })();

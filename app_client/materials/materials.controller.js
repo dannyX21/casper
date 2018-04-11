@@ -58,7 +58,6 @@
         vm.types = set2Array(types);
         vm.types.sort();
         vm.types.unshift("ALL");
-        console.log(vm.types);
         vm.filterCable.type = "ALL";
         vm.shields = set2Array(shields);
         vm.shields.sort();

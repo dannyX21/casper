@@ -34,7 +34,6 @@
       vm.loading = true;
       return orderData.getOrders(vm.filterOrder.permLoc, vm.filterOrder.promDateFrom, vm.filterOrder.promDateTo).then(function(data) {
         vm.orders = data.data;
-        console.log("Rows: " + vm.orders.length)
         vm.customers = [];
         let dict = {};
         vm.orders.map(function(item) {

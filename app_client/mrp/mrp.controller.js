@@ -51,12 +51,10 @@
         vm.sortReverse = !vm.sortReverse;
       }
       vm.myOrderBy = colName;
-      console.log(vm.myOrderBy);
     };
 
     vm.onSelTypeChange = function() {
       vm.filterMats.type = vm.selType.type == "ALL" ? undefined : vm.selType.type;
-      console.log(vm.filterMats.type);
     }
 
     vm.getMRP();
