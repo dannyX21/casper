@@ -27,10 +27,17 @@
               <input class="form-control w-75" id="poText" type="text" ng-model="vm.filterOrder.po" size="10" ng-change="vm.getTotal()" style="text-transform:uppercase"/>
             </div>
           </div>
-          <div class="col-sm-6 col-xs-4">
+          <div class="col-sm-3 col-xs-3">
             <div class="form-inline">
               <label for="selCust">Customer:</label>
               <select class="form-control w-75" id="selCust" ng-options="cust.customer for cust in vm.customers" ng-model="vm.selCustomer" ng-change="vm.onSelCustomerChange()"></select>
+            </div>
+          </div>
+          <div class="col-sm-3 col-xs-3">
+            <div class="form-check form-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" ng-model="vm.highlightSpecialLabels" ng-change="vm.setHighlightSpecialLabels()" /> Highlight special label orders.
+              </label>
             </div>
           </div>
         </div>
@@ -90,7 +97,7 @@
         <th class="sticky-top" ng-click="vm.orderByMe('comments')">Comments</th>
       </thead>
       <tbody>
-        <tr ng-repeat="o in (vm.subSetData = (vm.orders  | filterOrders: vm.filterOrder  | orderBy:vm.myOrderBy:vm.sortReverse))">
+        <tr ng-repeat="o in (vm.subSetData = (vm.orders  | filterOrders: vm.filterOrder  | orderBy:vm.myOrderBy:vm.sortReverse))" ng-class="{'table-primary': vm.highlightSpecialLabels && o.customerId == 11327}">
           <td class="text-center">{{o.so}}</td>
           <td class="text-right">{{o.entryDate|date:"MM/dd/yy"}}</td>
           <td class="text-center">{{o.sq}}</td>

@@ -15,6 +15,7 @@
     vm.permLocs = [];
     vm.subSetData = [];
     vm.loading = true;
+    vm.highlightSpecialLabels = false;
 
     vm.getPermLocs = function() {
       vm.selPermLoc = $routeParams.permLoc;
@@ -33,7 +34,7 @@
     vm.getOrders = function() {
       vm.loading = true;
       return orderData.getOrders(vm.filterOrder.permLoc, vm.filterOrder.promDateFrom, vm.filterOrder.promDateTo).then(function(data) {
-        vm.orders = data.data;
+        vm.orders = data.data;        
         vm.customers = [];
         let dict = {};
         vm.orders.map(function(item) {
@@ -83,7 +84,14 @@
         });
       }, 1000);
     };
+    vm.getHighlightSpecialLabels = function() {
+      vm.highlightSpecialLabels = orderData.getHighlightSpecialLabels()=="true" ? true : false;
+    };
+    vm.setHighlightSpecialLabels = function() {
+      orderData.setHighlightSpecialLabels(vm.highlightSpecialLabels);
+    };
 
+    vm.getHighlightSpecialLabels();
     if($routeParams.promDateFrom && Date.parse($routeParams.promDateFrom)!== NaN) {
       vm.filterOrder.promDateFrom = new Date($routeParams.promDateFrom);
     }
