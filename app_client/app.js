@@ -38,6 +38,11 @@
       controller: 'evaluationCtrl',
       controllerAs: 'vm'
     })
+    .when('/aql', {
+      templateUrl: '/incoming/incoming.view.html',
+      controller: 'incomingCtrl',
+      controllerAs: 'vm'
+    })
     .otherwise({
       redirectTo: "/"
     });

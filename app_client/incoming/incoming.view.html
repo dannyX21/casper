@@ -1,0 +1,51 @@
+<navigation></navigation>
+<div class="container">
+  <div class="page-header text-center">
+    <h1>{{vm.pageHeader.title}}</h1>
+    <h5><i class="far fa-check-square"></i> Acceptable Quality Limit</h5>
+  </div>
+</div>
+<br />
+<div class="col-sm-4 col-xs-6 offset-sm-4">
+  <div class="card" style="padding-left: 40px;">
+    <div class="row">
+      <div>
+        <br />
+        <label for="selInsLevel">Inspection Level:</label>
+        <select class="form-control" id="selInsLevel" ng-options="sample.label for sample in vm.sampleSize" ng-model="vm.insLevel" ng-change="vm.updateLetterCode()"></select>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div>
+        <label for="lotQty">Lot Qty:</label>
+        <input type="number" id="lotQty" class="form-control" ng-model="vm.lotQty" ng-change="vm.updateLetterCode()" />
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div>
+        <label for="selAqlValue">AQL Value:</label>
+        <select class="form-control" id="selAqlValue" ng-options="aql for aql in vm.aqlValues" ng-model="vm.aqlValue" ng-change="vm.updateData()"></select>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div>
+        <h3 class="text-primary">Sample size: <span class="badge badge-pill badge-primary">{{vm.sample}}</span></h3>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div>
+        <h3 class="text-success">Qty to Accept Lot: <span class="badge badge-pill badge-success">{{vm.qtyAccept}}</span></h3>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div>
+        <h3 class="text-danger">Qty to Reject Lot: <span class="badge badge-pill badge-danger">{{vm.qtyReject}}</span></h3>
+      </div>
+    </div>
+  </div>
+</div>
