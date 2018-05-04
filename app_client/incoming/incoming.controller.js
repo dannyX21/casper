@@ -12,10 +12,16 @@
       while(vm.insLevel.table[index].lot < vm.lotQty) {
         index ++;
       }
-      vm.letterCode = vm.insLevel.table[index].letter;
+      console.log("Sample size code letter: " + vm.insLevel.table[index].letter);
+      console.log("Sample table: " + vm.sampleTable[vm.insLevel.table[index].letter])
+      console.log("vm.aqlValue: " + vm.aqlValue);
+      console.log("aqlValues.index: " + vm.aqlValues.indexOf(vm.aqlValue));
+      vm.letterCode = vm.sampleTable[vm.insLevel.table[index].letter][vm.aqlValues.indexOf(vm.aqlValue)];
+      console.log("letterCode: " + vm.letterCode);
       vm.updateData();
     };
     vm.updateData = function() {
+      console.log("AQL Value: " + vm.aqlValue);
       vm.sample = vm.masterTable[vm.letterCode].sampleSize;
       vm.qtyAccept = vm.masterTable[vm.letterCode].values[vm.aqlValues.indexOf(vm.aqlValue)];
       vm.qtyReject = vm.qtyAccept + 1;
@@ -175,9 +181,27 @@
       Q: { sampleSize: 1250, values: [0,0,1,1,2,3,5,7,10,14,21,21,21,21,21,21,21,21,21,21,21,30,44,44,44,44]},
       R: { sampleSize: 2000, values: [0,0,1,2,3,5,7,10,14,21,21,21,21,21,21,21,21,21,21,21,21,30,44,44,44,44]}
     };
+    vm.sampleTable = {
+      A: ['Q', 'P', 'N', 'M', 'L', 'K', 'J', 'H', 'G', 'F', 'E', 'D', 'C', 'B', 'A', 'C', 'B', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A'],
+      B: ['Q', 'P', 'N', 'M', 'L', 'K', 'J', 'H', 'G', 'F', 'E', 'D', 'C', 'B', 'A', 'C', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'],
+      C: ['Q', 'P', 'N', 'M', 'L', 'K', 'J', 'H', 'G', 'F', 'E', 'D', 'C', 'B', 'D', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'B'],
+      D: ['Q', 'P', 'N', 'M', 'L', 'K', 'J', 'H', 'G', 'F', 'E', 'D', 'C', 'E', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'C', 'B'],
+      E: ['Q', 'P', 'N', 'M', 'L', 'K', 'J', 'H', 'G', 'F', 'E', 'D', 'F', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'D', 'C', 'B'],
+      F: ['Q', 'P', 'N', 'M', 'L', 'K', 'J', 'H', 'G', 'F', 'E', 'G', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'E', 'E', 'E', 'D', 'C', 'B'],
+      G: ['Q', 'P', 'N', 'M', 'L', 'K', 'J', 'H', 'G', 'F', 'H', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'F', 'E', 'E', 'E', 'D', 'C', 'B'],
+      H: ['Q', 'P', 'N', 'M', 'L', 'K', 'J', 'H', 'G', 'J', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'G', 'F', 'E', 'E', 'E', 'D', 'C', 'B'],
+      J: ['Q', 'P', 'N', 'M', 'L', 'K', 'J', 'H', 'K', 'J', 'J', 'J', 'J', 'J', 'J', 'J', 'J', 'H', 'G', 'F', 'E', 'E', 'E', 'D', 'C', 'B'],
+      K: ['Q', 'P', 'N', 'M', 'L', 'K', 'J', 'L', 'K', 'K', 'K', 'K', 'K', 'K', 'K', 'K', 'J', 'H', 'G', 'F', 'E', 'E', 'E', 'D', 'C', 'B'],
+      L: ['Q', 'P', 'N', 'M', 'L', 'K', 'M', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'K', 'J', 'H', 'G', 'F', 'E', 'E', 'E', 'D', 'C', 'B'],
+      M: ['Q', 'P', 'N', 'M', 'L', 'N', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'L', 'K', 'J', 'H', 'G', 'F', 'E', 'E', 'E', 'D', 'C', 'B'],
+      N: ['Q', 'P', 'N', 'M', 'P', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'M', 'L', 'K', 'J', 'H', 'G', 'F', 'E', 'E', 'E', 'D', 'C', 'B'],
+      P: ['Q', 'P', 'N', 'Q', 'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P', 'N', 'M', 'L', 'K', 'J', 'H', 'G', 'F', 'E', 'E', 'E', 'D', 'C', 'B'],
+      Q: ['Q', 'P', 'R', 'Q', 'Q', 'Q', 'Q', 'Q', 'Q', 'Q', 'Q', 'P', 'N', 'M', 'L', 'K', 'J', 'H', 'G', 'F', 'E', 'E', 'E', 'D', 'C', 'B'],
+      R: ['Q', 'P', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'Q', 'P', 'N', 'M', 'L', 'K', 'J', 'H', 'G', 'F', 'E', 'E', 'E', 'D', 'C', 'B'],
+    };
     vm.insLevel = vm.sampleSize.I;
     vm.lotQty = 0;
-    vm.aqlValue = 100;
+    vm.aqlValue = 1;
     vm.updateLetterCode();
   }
 })();
