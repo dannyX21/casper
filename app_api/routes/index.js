@@ -7,6 +7,7 @@ const ctrlMaterial = require("../controllers/materials");
 const ctrlCable = require("../controllers/cables");
 const ctrlComponent = require("../controllers/components");
 const ctrlEvaluation = require("../controllers/evaluations");
+const ctrlSimulation = require("../controllers/simulations");
 
 router.post('/upload', ctrlFile.uploadOpenSO);
 router.post('/uploadMaterials', ctrlFile.uploadMaterials);
@@ -20,5 +21,7 @@ router.get('/materials/components', ctrlComponent.getComponents);
 router.get('/materials/components/depts', ctrlCable.getDepts);
 router.get('/periods', ctrlEvaluation.getPeriods);
 router.get('/vendors/evaluations/:period', ctrlEvaluation.getEvaluation);
+router.get('/simulations/',ctrlSimulation.getSimPNs);
+router.get('/simulations/:pn', ctrlSimulation.getSimData);
 
 module.exports = router;

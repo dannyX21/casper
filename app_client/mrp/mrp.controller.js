@@ -58,5 +58,6 @@
     }
 
     vm.getMRP();
+    vm.selType = vm.types[0];
   }
 })();

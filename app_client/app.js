@@ -43,9 +43,21 @@
       controller: 'incomingCtrl',
       controllerAs: 'vm'
     })
+    .when('/simulation', {
+      templateUrl: '/simulation/simulation.view.html',
+      controller: 'simulationCtrl',
+      controllerAs: 'vm'
+    })
     .otherwise({
       redirectTo: "/"
     });
   }
   angular.module('casperApp').config(['$routeProvider', '$locationProvider', config]);
+  angular.module('casperApp').value('googleChartApiConfig', {
+    version: '1',
+    optionalSettings: {
+      packages: ['corechart'],
+      language: "en"
+    }
+  });
 })();

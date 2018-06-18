@@ -1,0 +1,424 @@
+<navigation></navigation>
+<div class="container">
+  <div class="page-header text-center">
+    <h1>{{vm.pageHeader.title}}</h1>
+  </div>
+</div>
+<div class="row roboto">
+  <div class="col-sm-2 col-xs-3">
+    <div class="card bg.light">
+      <div class="card-body sidebar">
+        <div class="row">
+          <div class="col-sm-6 text-right col-lbl">
+            <label for="selPN">P/N</label>
+          </div>
+          <div class="col-sm-6 col-ctrl">
+            <select id="selPN" class="form-control form-control-sm" ng-model="vm.pn" ng-options="pn for pn in vm.items" ng-change="vm.onPNChange()" autofocus></select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 text-right col-lbl">
+            <label for="dateStartDate">Start date: </label>
+          </div>
+          <div class="col-sm-6 col-ctrl">
+            <div class="card">
+              <md-datepicker id="dateStartDate" md-hide-icons="calendar" ng-model="vm.params.startDate" md-placeholder="start date" ng-change="vm.onStartDateChange()"></md-datepicker>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 text-right col-lbl">
+            <label for="textLeadTime">Lead Time: </label>
+          </div>
+          <div class="col-sm-6 col-ctrl">
+            <input id="textLeadTime" class="form-control form-control-sm num-input" type="number" ng-model="vm.params.leadTime" ng-change="vm.onParamsChange()"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 text-right col-lbl">
+            <label for="selPredictionMethods">Prediction method:</label>
+          </div>
+          <div class="col-sm-6 col-ctrl">
+            <select class="form-control form-control-sm" ng-options="key as value for (key,value) in vm.predictionMethods" ng-model="vm.params.predictionMethod" ng-change="vm.onPredictiveMethodChange()"></select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 text-right col-lbl">
+            <label for="textInitialInventoryWeeks">Initial inventory (wks):</label>
+          </div>
+          <div class="col-sm-6 col-ctrl">
+            <input id="textInitialInventoryWeeks" class="form-control form-control-sm num-input" type="number" ng-model="vm.params.initialInventoryWeeks" ng-change="vm.onParamsChange()"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 text-right col-lbl">
+            <label for="textInitialInventory">Initial Inventory:</label>
+          </div>
+          <div class="col-sm-6 col-ctrl">
+            <input id="textInitialInventory" class="form-control form-control-sm num-input" type="number" ng-model="vm.params.initialInventory" ng-change="vm.onParamsChange()"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-lbl text-right">
+            <label for="textSafetyStockWeeks">Safety stock (wks):</label>
+          </div>
+          <div class="col-sm-6 col-ctrl">
+            <input id="textSafetyStockWeeks" class="form-control form-control-sm num-input" type="number" ng-model="vm.params.safetyStockWeeks" ng-change="vm.onParamsChange()"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-lbl text-right">
+            <label for="textInitialSafetyStock">Initial safety stock:</label>
+          </div>
+          <div class="col-sm-6 col-ctrl">
+            <input id="textInitialSafetyStock" class="form-control form-control-sm num-input" type="number" ng-model="vm.params.initialSafetyStock" ng-change="vm.onParamsChange()"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-lbl text-right">
+            <label for="textMaxInventoryWeeks">Max. inventory (wks):</label>
+          </div>
+          <div class="col-sm-6 col-ctrl">
+            <input id="textMaxInventoryWeeks" class="form-control form-control-sm num-input" type="number" ng-model="vm.params.maxInventoryWeeks" ng-change="vm.onParamsChange()"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-lbl text-right">
+            <label for="textInitialMaxInventory">Initial max. inventory:</label>
+          </div>
+          <div class="col-sm-6 col-ctrl">
+            <input id="textInitialMaxInventory" class="form-control form-control-sm num-input" type="number" ng-model="vm.params.initialMaxInventory" ng-change="vm.onParamsChange()"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-lbl text-right">
+            <label for="textIdealInventoryPctg">Ideal inv.(% of max.):</label>
+          </div>
+          <div class="col-sm-4 col-ctrl">
+            <input id="textIdealInventoryPctg" class="form-control form-control-sm num-input" type="range" ng-model="vm.params.idealInventoryPctg" ng-change="vm.onParamsChange()" style="padding:0px;"/>
+          </div>
+          <div class="col-sm-2 col-ctrl">
+            <span class="badge badge-pill badge-dark">{{vm.params.idealInventoryPctg}}%</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-lbl text-right">
+            <label for="textIdealInventoryWeeks">Ideal inventory (wks):</label>
+          </div>
+          <div class="col-sm-6 col-ctrl">
+            <input id="textIdealInventoryWeeks" class="form-control form-control-sm num-input" ng-model="vm.params.idealInventoryWeeks" ng-change="vm.onParamsChange()"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-lbl text-right">
+            <label for="textInitialIdealInventory">Initial ideal inventory: </label>
+          </div>
+          <div class="col-sm-6 col-ctrl">
+            <input id="textInitialIdealInventory" class="form-control form-control-sm num-input" type="number" ng-model="vm.params.initialIdealInventory" ng-change="vm.onParamsChange()"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-lbl text-right">
+            <label for="textOrderFrequency">Order frequency (wks):</label>
+          </div>
+          <div class="col-sm-6 col-ctrl">
+            <input id="textOrderFrequency" class="form-control form-control-sm num-input" type="number" ng-model="vm.params.orderFrequency" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-lbl text-right">
+            <label for="textMinimumOrderMultiple">Min. order multiple:</label>
+          </div>
+          <div class="col-sm-6 col-ctrl">
+            <input id="textMinimumOrderMultiple" class="form-control form-control-sm num-input" type="number" ng-model="vm.params.minOrderMultiple" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-lbl text-right">
+            <label for="textMOQ">Min. order qty:</label>
+          </div>
+          <div class="col-sm-6 col-ctrl">
+            <input id="textMOQ" class="form-control form-control-sm num-input" type="number" ng-model="vm.params.moq" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-lbl text-right">
+            <label for="textRandPctg">Randomize demand%:</label>
+          </div>
+          <div class="col-sm-4 col-ctrl">
+            <input id="textRandPctg" class="form-control form-control-sm num-input" type="range" ng-model="vm.params.randomPctg" />
+          </div>
+          <div class="col-sm-2 col-ctrl">
+            <span class="badge badge-pill badge-dark">{{vm.params.randomPctg}}%</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-lbl text-right">
+            <label for="selRoundTo">Round SS to Closest: </label>
+          </div>
+          <div class="col-sm-6 col-ctrl">
+            <select class="form-control form-control-sm" id="selRoundTo" ng-model="vm.params.roundTo" ng-options="m for m in vm.magnitudes"></select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 offset-sm-6">
+            <button class="btn btn-primary btn-lg" id="btnRun" type="button" ng-click="vm.runSimulation()">Run</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-10">
+    <div class="row">
+      <div class="col-sm-12">
+        <h3 ng-show="vm.item==undefined">&lt;--- Please select an item</h3>
+        <div class="card bg-light" ng-show="vm.item">
+          <div class="card-header text-center">
+            <h4 class="card-title">{{vm.item.pn +" (" + vm.item.desc + ")" }}</h4>
+          </div>
+          <div class="card-body">
+            <div class="card-text">
+              <div class="row" ng-show="vm.item.dept!=''">
+                <div class="col-sm-1">
+                  <span>Dept: <strong>{{vm.item.dept}}</strong></span>
+                </div>
+                <div class="col-sm-2">
+                  <span>Mfr: <strong>{{vm.item.mfr}}</strong></span>
+                </div>
+                <div class="col-sm-2">
+                  <span>Type: <strong>{{vm.item.type}}</strong></span>
+                </div>
+                <div class="col-sm-2">
+                  <span>Shield: <strong>{{vm.item.shield}}</strong></span>
+                </div>
+                <div class="col-sm-2">
+                  <span>Color: <strong>{{vm.item.color}}</strong></span>
+                </div>
+                <div class="col-sm-2">
+                  <span>Legend: <strong>{{vm.item.legend}}</strong></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-1">
+                  <span>UM: <strong>{{vm.item.um}}</strong></span>
+                </div>
+                <div class="col-sm-2">
+                  <span>Unit Price: <strong>{{vm.item.up | currency :'$':4}}</strong></span>
+                </div>
+                <div class="col-sm-2">
+                  <span>Safety Stock: <strong>{{vm.item.ss|number}}</strong></span>
+                </div>
+                <div class="col-sm-2">
+                  <span>Lead Time: <strong>{{vm.item.lt}} weeks</strong></span>
+                </div>
+                <div class="col-sm-2">
+                  <span>Transit Time: <strong>{{vm.item.tt}} weeks</strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card bg-light" ng-show="vm.item">
+          <br />
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="pill" data-target="#table-div" id="btnTable"><i class="fas fa-list-ol"></i> Data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="pill" data-target="#chart-div" id="btnChart"><i class="fas fa-chart-line"></i> Chart</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="pill" data-target="#stats-div" id="btnStats"><i class="fas fa-table"></i> Stats</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="pill" data-target="#history-div" id="btnHistory"><i class="fas fa-history"></i> History</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="pill" data-target="#share-div" id="btnShare"><i class="fas fa-share-alt-square"></i> Share</a>
+            </li>
+          </ul>
+          <br />
+          <div class="tab-content">
+            <div class="tab-pane container-fluid active" id="table-div">
+              <table class="table table-hover table-striped table-bordered table-sm">
+                <thead>
+                  <tr class="text-center">
+                    <th>Week#</th>
+                    <th>Date</th>
+                    <th>Qty OH</th>
+                    <th>OH Value</th>
+                    <th>Qty Consumed</th>
+                    <th>Qty On Order</th>
+                    <th>Qty To Order</th>
+                    <th>Qty Delivered</th>
+                    <th>Balance</th>
+                    <th>Prediction Method</th>
+                    <th>Weeks Available</th>
+                    <th>On Hand + On Order</th>
+                    <th>Current S. S.</th>
+                    <th>Ideal Stock</th>
+                    <th>Max Stock</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="w in vm.data track by $index" class="text-right">
+                    <td>{{ w.week }}</td>
+                    <td>{{ w.date |date: "MM/dd/yyyy" }}</td>
+                    <td ng-class="{'text-danger': w.qtyOH<0,'text-warning': w.qtyOH > w.maxStock}">{{ w.qtyOH|number:0 }}</td>
+                    <td>{{ w.oHValue|currency }}</td>
+                    <td>{{ w.qtyConsumed|number:0 }}</td>
+                    <td>{{ w.qtyOnOrder|number:0 }}</td>
+                    <td>{{ w.qtyToOrder|number:0}}</td>
+                    <td>{{ w.qtyDelivered|number:0 }}</td>
+                    <td>{{ w.balance|number:0 }}</td>
+                    <td class="text-center">{{ vm.predictionMethods[w.predictionMethod]}}</td>
+                    <td>{{ w.weeksAvailable|number:2 }}</td>
+                    <td>{{ w.onHand_onOrder|number:0 }}</td>
+                    <td>{{ w.currentSS|number:0 }}</td>
+                    <td>{{ w.idealStock|number:0 }}</td>
+                    <td>{{ w.maxStock|number:0 }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane container-fluid" id="chart-div">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div google-chart chart="vm.chartObject" agc-on-select="vm.hideSeries(selectedItem)" style="height:600px; width:100%;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane container-fluid" id="stats-div">
+              <div class="row">
+                <div class="col-sm-12 text-center">
+                  <h5>Prediction Methods</h5>
+                  <table class="table table-hover table-striped table-bordered">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Last 12 months</th>
+                        <th>Last 6 months</th>
+                        <th>Last 3 months</th>
+                        <th>Last 2 months</th>
+                        <th>Mixed</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Error rate (Root Mean Square)</td>
+                        <td ng-class="{'text-success': vm.item.method=='12m'}">{{vm.errorRates["12m"]|number:0}}</td>
+                        <td ng-class="{'text-success': vm.item.method=='6m'}">{{vm.errorRates["6m"]|number:0}}</td>
+                        <td ng-class="{'text-success': vm.item.method=='3m'}">{{vm.errorRates["3m"]|number:0}}</td>
+                        <td ng-class="{'text-success': vm.item.method=='2m'}">{{vm.errorRates["2m"]|number:0}}</td>
+                        <td ng-class="{'text-success': vm.item.method=='m'}">{{vm.errorRates["m"]|number:0}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <h5>Simulation Stats</h5>
+                  <table class="table table-hover table-striped table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Stats</th>
+                        <th>Min</th>
+                        <th>Max</th>
+                        <th>Average</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Qty On Hand</td>
+                        <td>{{vm.stats.qtyOH.min|number:0}}</td>
+                        <td>{{vm.stats.qtyOH.max|number:0}}</td>
+                        <td>{{vm.stats.qtyOH.sum/vm.data.length|number:0}}</td>
+                      </tr>
+                      <tr>
+                        <td>On Hand Value</td>
+                        <td>{{vm.stats.qtyOH.min*vm.item.up|currency}}</td>
+                        <td>{{vm.stats.qtyOH.max*vm.item.up|currency}}</td>
+                        <td>{{vm.stats.qtyOH.sum/vm.data.length*vm.item.up|currency}}</td>
+                      </tr>
+                      <tr>
+                        <td>Qty Consumed</td>
+                        <td>{{vm.stats.qtyConsumed.min|number:0}}</td>
+                        <td>{{vm.stats.qtyConsumed.max|number:0}}</td>
+                        <td>{{vm.stats.qtyConsumed.sum/vm.data.length|number:0}}</td>
+                      </tr>
+                      <tr>
+                        <td>Qty On Order</td>
+                        <td>{{vm.stats.qtyOnOrder.min|number:0}}</td>
+                        <td>{{vm.stats.qtyOnOrder.max|number:0}}</td>
+                        <td>{{vm.stats.qtyOnOrder.sum/vm.data.length|number:0}}</td>
+                      </tr>
+                      <tr>
+                        <td>On Order Value</td>
+                        <td>{{vm.stats.qtyOnOrder.min*vm.item.up|currency}}</td>
+                        <td>{{vm.stats.qtyOnOrder.max*vm.item.up|currency}}</td>
+                        <td>{{vm.stats.qtyOnOrder.sum/vm.data.length*vm.item.up|currency}}</td>
+                      </tr>
+                      <tr>
+                        <td>Weeks Available</td>
+                        <td>{{vm.stats.weeksAvailable.min|number:2}}</td>
+                        <td>{{vm.stats.weeksAvailable.max|number:2}}</td>
+                        <td>{{vm.stats.weeksAvailable.sum/vm.data.length|number:0}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane container" id="history-div">
+              <div class="row">
+                <div class="col-sm-12">
+                  <table class="table table-bordered table-striped table-hover table-sm">
+                    <thead>
+                      <tr class="text-center">
+                        <th>Month</th>
+                        <th>Demand</th>
+                        <th>Avg. per week</th>
+                        <th>Last 12 mo. Prediction</th>
+                        <th>Last 6 mo. Prediction</th>
+                        <th>Last 3 mo. Prediction</th>
+                        <th>Last 2 mo. Prediction</th>
+                        <th>Mixed Prediction</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="h in vm.item.history track by $index" class="text-right">
+                        <td>{{vm.historyMonths[$index]|date:"MMM-yyyy"}}</td>
+                        <td>{{h|number}}</td>
+                        <td>{{(h/4.33333)|number:0}}</td>
+                        <td>{{$index>0 ? vm.prediction['12m'][$index-1]: ''|number:0}}</td>
+                        <td>{{$index>0 ? vm.prediction['6m'][$index-1]: ''|number:0}}</td>
+                        <td>{{$index>0 ? vm.prediction['3m'][$index-1]: ''|number:0}}</td>
+                        <td>{{$index>0 ? vm.prediction['2m'][$index-1]: ''|number:0}}</td>
+                        <td>{{$index>0 ? vm.prediction['m'][$index-1]: ''|number:0}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane container" id="share-div">
+              <h5>Share this simulation</h5>
+              <p>
+                Copy this link to share this simulation with others.
+              </p>
+              <textarea id="textShare" class="form-control" ng-model="vm.share" rows="5" readonly></textarea>
+            </div>
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<div class="row">
+  <div class="col-sm-2">
+  </div>
+</div>

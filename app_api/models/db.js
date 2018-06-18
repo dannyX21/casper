@@ -49,3 +49,4 @@ require('./material');
 require('./cable');
 require('./component');
 require('./evaluation');
+require('./simulation');

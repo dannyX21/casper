@@ -27,3 +27,22 @@ label {
 #table-eval > tbody {
   font-size: 1.25em;
 }
+
+.num-input {
+  text-align: right;
+}
+
+.sidebar {
+  padding: 5px;
+}
+
+.col-lbl {
+  padding-right: 0px;
+}
+.col-ctrl {
+  padding-left: 5px;
+  margin-bottom: 10px;
+}
+.roboto {
+  font-family: 'Roboto Condensed', sans-serif;
+}
