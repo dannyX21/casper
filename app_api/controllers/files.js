@@ -295,7 +295,7 @@ function formatDate(dt) {
 
 function calcTotalPcs(pn, lpn, qtyOrdered) {
   if(lpn!=undefined) {
-    const match = lpn.toString().match(/^EZ(?:C5E|C6|C6A|RD6)\d{2,3}Q(\d{2,3})-\d\d$/);
+    const match = lpn.toString().match(/^EZ(?:C5E|C6|C6A|RD6|FP[RS](?:6A|5E|6))\d{2,3}Q(\d{2,3})-\d\d$/);
     if(match) {
       return match[1] * qtyOrdered;
     }
