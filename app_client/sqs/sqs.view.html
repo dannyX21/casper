@@ -1,0 +1,62 @@
+<navigation></navigation>
+<div class="container-fluid">
+  <div class="page-header text-center">
+    <h1>{{vm.pageHeader.title}}</h1>
+    <h5><i class="fa fa-list"></i> Pending SQ's.</h5>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table table-bordered table-hover table-striped table-small">
+        <thead>
+          <tr class="text-center">
+            <th>Dept.</th>
+            <th>Fac.</th>
+            <th>SQ#</th>
+            <th>Salesperson</th>
+            <th>P/N</th>
+            <th>Long P/N</th>
+            <th>Customer</th>
+            <th>Date Added</th>
+            <th>Status</th>
+            <th>Req.Del. Date</th>
+            <th>Req. Ship Date</th>
+            <th>Qty</th>
+            <th>Type</th>
+            <th>PO#</th>
+            <th>Mats.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="sq in vm.sqs">
+            <td>{{ sq.dept }}</td>
+            <td>{{ sq.fac }}</td>
+            <td>{{ sq.sqd }}</td>
+            <td>{{ sq.salesPerson }}</td>
+            <td>{{ sq.pn }}</td>
+            <td>{{ sq.lpn }}</td>
+            <td>{{ sq.customer }}</td>
+            <td class="text-right">{{ sq.addDate | date: "MM/dd/yy" }}</td>
+            <td class="text-center">{{ sq.status }}</td>
+            <td class="text-right">{{ sq.reqDelDate | date: "MM/dd/yy" }}</td>
+            <td class="text-right">{{ sq.reqShipDate | date: "MM/dd/yy" }}</td>
+            <td class="text-right">{{ sq.qty | number }}</td>
+            <td class="text-center">{{ sq.oType }}</td>
+            <td>{{ sq.po }}</td>
+            <td ng-switch="{{sq.okMats}}">
+              <div ng-switch-when="true" class="text-center text-success">
+                <span><i class="fas fa-check-circle"></i></span>
+              </div>
+              <div ng-switch-when="false">
+                <ul ng-repeat="mat in sq.missingMats">
+                  <li>
+                    <strong>{{ mat.pn }}</strong><span>{{ mat.delDate !== undefined ? " - " + (mat.delDate|date:"MM/dd/yy"):""}}</span>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

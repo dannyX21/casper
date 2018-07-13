@@ -5,12 +5,112 @@ const Order = mongoose.model('Order');
 const Material = mongoose.model('Material');
 const Cable = mongoose.model('Cable');
 const Component = mongoose.model('Component');
+const Sq = mongoose.model('Sq');
 const xlsx = require('xlsx');
 
 let sendJsonResponse = function(res, status, content) {
   res.status(status);
   res.json(content);
 };
+
+let convertDate = (str) => {
+  let date_parts = str.split('-');
+  return new Date("20" + date_parts[2], parseInt(date_parts[0])-1, date_parts[2], 0, 0, 0, 0);
+}
+
+module.exports.uploadSQs = (req, res) => {
+  if(!req.files) {
+    sendJsonResponse(res, 400, {
+      message: "No files were uploaded."
+    });
+    return;
+  }
+  const attachment = req.files.attachment;
+  const filePath = process.env.UPLOAD_PATH;
+  let fileName = attachment.name;
+  let index = 1;
+  const extension = path.extname(attachment.name);
+  if(extension !== '.txt' && extension !== '.dat') {
+    sendJsonResponse(res, 400, {
+      message: "Only text files are allowed."
+    });
+    fs.unlink(filePath + fileName, (err) => {
+      if(err) {
+        console.log(err);
+      }
+    });
+    return;
+  }
+  while(fs.existsSync(filePath + fileName)){
+    fileName = attachment.name.substring(0,attachment.name.length - extension.length) + "(" + index + ")" + extension;
+    index ++;
+  }
+  attachment.mv(filePath + fileName, function(err) {
+    if(err) {
+      console.log(err);
+      sendJsonResponse(res, 500, err);
+      return;
+    }
+    fs.readFile(filePath + fileName, 'utf8', (err, data) => {
+      if(err) {
+        sendJsonResponse(res, 500, err);
+        return;
+      } else {
+        const regex = /([A-Z0-9]+)\s(\d\d)\s+(\d{6}\*\d+)\s([a-zA-Z ]+)\s([\w|.-]+)\s([\w|.-]+)?\s([\w. ]+)\s(\d\d-\d\d-\d\d)\s(RC|RP|R)\s(\d\d-\d\d-\d\d)\s(\d\d-\d\d-\d\d)\s(\d+)\s(DS|N)\s(\w+)/;
+        const lines = data.split('\n');
+        let match;
+        let promises = [];
+        for(let c = 0; c<lines.length;c++) {
+          if((match=regex.exec(lines[c]))!==null) {
+            let prom = new Promise((resolve, reject) => {
+              Sq.findOneAndUpdate({
+                sqd: match[3]
+              }, {
+                dept: match[1],
+                fac: match[2],
+                sqd: match[3],
+                salesPerson: match[4],
+                pn: match[5],
+                lpn: match[6],
+                customer: match[7],
+                addDate: convertDate(match[8]),
+                status: match[9],
+                reqDelDate: convertDate(match[10]),
+                reqShipDate: convertDate(match[11]),
+                qty: match[12],
+                oType: match[13],
+                po: match[14]
+              },{
+                upsert: true,
+                new: true,
+                runValidators: true
+              }, (err, data) => {
+                if(err) {
+                  console.log("rejected " + err);
+                  reject(err);
+                } else {
+                  resolve(data);
+                }
+              });
+            });
+            promises.push(prom);
+          }
+        }
+        Promise.all(promises).then((data)=> {
+          sendJsonResponse(res, 200, {
+            sqs: data
+          });
+        }).catch( (err) => {
+          console.log(err);
+          console.log(typeof err);
+          sendJsonResponse(res, 500, {
+            message: err
+          });
+        });
+      }
+    });
+  });
+}
 
 module.exports.uploadMaterials = (req, res) => {
   if(!req.files) {
@@ -187,7 +287,46 @@ module.exports.uploadOpenSO = function(req, res) {
         console.log(err);
       }
     });
-    return;
+    return;const mongoose = require('mongoose');
+
+const missingMats = new mongoose.Schema({
+  pn: {type: String, required: true},
+  delDate: {type: Date, required: false}
+});
+
+const commentSchema = new mongoose.Schema({
+  author: { type: String, required: true },
+  comment: { type: String, required: true},
+  date: { type: Date, required: true, "default": Date.now}
+});
+
+const sqSchema = new mongoose.Schema({
+  dept: {type: String, required: true},
+  fac: {type: Number, required: true},
+  sqd: {type: String, required: true},
+  salesPerson: {type: String, required: true},
+  pn: {type: String, required: true},
+  lpn: {type: String, required: false},
+  customer: {type: String, required: true},
+  addDate: {type: Date, required: true},
+  status: {type: String, required: true},
+  reqDelDate: {type: Date, required: true},
+  reqShipDate: {type: Date, required: true},
+  qty: {type: Number, required: true, min: 0},
+  oType: {type: String, required: true},
+  po: {type: String, required: true},
+  okMats: {type: Boolean, required: false},
+  missingMats: [missingMats],
+  revBy: {type: String, required: false},
+  revOn: {type: Date, required: false},
+  confDate: {type: Date, required: false},
+  confBy: {type: String, required: false},
+  confOn: {type: Date, required: false},
+  comments: [commentSchema]
+});
+
+mongoose.model('Sq', sqSchema);
+
   }
 
   while(fs.existsSync(filePath + fileName)){

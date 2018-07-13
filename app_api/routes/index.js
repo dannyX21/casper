@@ -8,9 +8,11 @@ const ctrlCable = require("../controllers/cables");
 const ctrlComponent = require("../controllers/components");
 const ctrlEvaluation = require("../controllers/evaluations");
 const ctrlSimulation = require("../controllers/simulations");
+const ctrlSqs = require("../controllers/sqs");
 
 router.post('/upload', ctrlFile.uploadOpenSO);
 router.post('/uploadMaterials', ctrlFile.uploadMaterials);
+router.post('/uploadSQs', ctrlFile.uploadSQs);
 router.get('/orders', ctrlOrder.getOrders);
 router.get('/permLocs', ctrlOrder.getPermLocs);
 router.get('/summary', ctrlOrder.getSummary);
@@ -23,5 +25,7 @@ router.get('/periods', ctrlEvaluation.getPeriods);
 router.get('/vendors/evaluations/:period', ctrlEvaluation.getEvaluation);
 router.get('/simulations/',ctrlSimulation.getSimPNs);
 router.get('/simulations/:pn', ctrlSimulation.getSimData);
+router.get('/sqs/', ctrlSqs.getPendingSQs);
+router.patch('/sqs/:sqd', ctrlSqs.reviewSQ);
 
 module.exports = router;

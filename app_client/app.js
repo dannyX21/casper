@@ -18,6 +18,11 @@
       controller: "uploadMaterialsCtrl",
       controllerAs: "vm"
     })
+    .when('/uploadSQs', {
+      templateUrl: "/uploadSQs/uploadSQs.view.html",
+      controller: "uploadSQsCtrl",
+      controllerAs: "vm"
+    })
     .when('/summary', {
       templateUrl: '/summary/summary.view.html',
       controller: 'summaryCtrl',
@@ -46,6 +51,11 @@
     .when('/simulation', {
       templateUrl: '/simulation/simulation.view.html',
       controller: 'simulationCtrl',
+      controllerAs: 'vm'
+    })
+    .when('/sqs', {
+      templateUrl: '/sqs/sqs.view.html',
+      controller: 'sqsCtrl',
       controllerAs: 'vm'
     })
     .otherwise({
