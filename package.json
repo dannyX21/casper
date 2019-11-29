@@ -12,9 +12,9 @@
     "dotenv": "^5.0.1",
     "express": "~4.15.5",
     "express-fileupload": "^0.4.0",
-    "jade": "~1.11.0",
     "mongoose": "^5.7.13",
     "morgan": "~1.9.1",
+    "pug": "^2.0.4",
     "serve-favicon": "~2.4.5",
     "uglify-es": "^3.3.10",
     "xlsx": "^0.12.13"
