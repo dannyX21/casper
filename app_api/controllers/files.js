@@ -56,7 +56,7 @@ module.exports.uploadSQs = (req, res) => {
         sendJsonResponse(res, 500, err);
         return;
       } else {
-        const regex = /([A-Z0-9]+)\s(\d\d)\s+(\d{6}\*\d+)\s([a-zA-Z ]+)\s([\w|.-]+)\s([\w|.-]+)?\s([\w. ]+)\s(\d\d-\d\d-\d\d)\s(RC|RP|R)\s(\d\d-\d\d-\d\d)\s(\d\d-\d\d-\d\d)\s(\d+)\s(DS|N)\s(\w+)/;
+        const regex = /([A-Z0-9]+)\s(\d\d)\s+(\d{6}\*\d+)\s([a-zA-Z ]+)\s([\w|.-]+)\s([\w|.-]+)?\s([\w,. -]+)\s(\d\d-\d\d-\d\d)\s(RC|RP|R)\s(\d\d-\d\d-\d\d)\s(\d\d-\d\d-\d\d)\s(\d+)\s(DS|N)\s(\w+)/;
         const lines = data.split('\n');
         let match;
         let promises = [];
@@ -156,9 +156,11 @@ module.exports.uploadMaterials = (req, res) => {
 
     let index = 1;
     let rows = data.length-1;
-    console.log("rows: " + rows);
     let materials = [];
     while(index<rows) {
+      if(data[index][0] == '11100585') {
+        console.log(data[index]);
+      }
       if(data[index][1]!=="FC") {
         let qtyOH = data[index][9];
         let qtyAllocated = data[index][5];
@@ -215,8 +217,6 @@ module.exports.uploadMaterials = (req, res) => {
       });
       index++;
     }
-    console.log(cables);
-    console.log(components);
 
     Material.remove({}, (err) => {
       if(err) {

@@ -5,3 +5,7 @@ public/lib/*
 
 # Environment variables
 .env
+
+# Temp xls files
+*.xls
+*.xlxs

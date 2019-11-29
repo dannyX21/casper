@@ -12,16 +12,11 @@
       while(vm.insLevel.table[index].lot < vm.lotQty) {
         index ++;
       }
-      console.log("Sample size code letter: " + vm.insLevel.table[index].letter);
-      console.log("Sample table: " + vm.sampleTable[vm.insLevel.table[index].letter])
-      console.log("vm.aqlValue: " + vm.aqlValue);
-      console.log("aqlValues.index: " + vm.aqlValues.indexOf(vm.aqlValue));
+
       vm.letterCode = vm.sampleTable[vm.insLevel.table[index].letter][vm.aqlValues.indexOf(vm.aqlValue)];
-      console.log("letterCode: " + vm.letterCode);
       vm.updateData();
     };
     vm.updateData = function() {
-      console.log("AQL Value: " + vm.aqlValue);
       vm.sample = vm.masterTable[vm.letterCode].sampleSize;
       vm.qtyAccept = vm.masterTable[vm.letterCode].values[vm.aqlValues.indexOf(vm.aqlValue)];
       vm.qtyReject = vm.qtyAccept + 1;

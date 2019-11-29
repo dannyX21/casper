@@ -13,7 +13,7 @@ module.exports.getPendingSQs = (req, res) => {
       { status: 'RP' },
       { status: 'RC'},
       { status: 'RR' }
-    ]}).sort("-addDate").exec((err, sqs) => {
+    ]}).sort("sqd").exec((err, sqs) => {
       if(err) {
         sendJsonResponse(res, 400, {
           message: err
